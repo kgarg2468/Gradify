@@ -1,0 +1,91 @@
+.result-screen-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #E8E8E8;
+    height: 100vh;
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .username {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .score-box {
+    border: 2px solid #00FF00;
+    padding: 20px;
+    margin: 10px 0;
+    text-align: center;
+    border-radius: 10px;
+    width: 80%;
+  }
+  
+  .score-box h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .score-box h2 {
+    margin: 10px 0;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .comment-box {
+    background-color: #F1F1F1;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    width: 80%;
+    text-align: center;
+  }
+  
+  .emoji-reactions {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 20px 0;
+  }
+  
+  .emoji-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+  }
+  
+  .count {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 30px;
+  }
+  
+  .nav-btn {
+    font-size: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
