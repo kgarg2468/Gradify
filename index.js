@@ -12,6 +12,7 @@ const port = 3000;
 const saltRounds = 10;
 env.config();
 
+app.set("view engine", "ejs"); // Set EJS as the template engine
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -56,9 +57,25 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/dashboard", (req, res) => {
-  // console.log(req.user);
   if (req.isAuthenticated()) {
     res.render("dashboard.ejs");
+  } else {
+    res.redirect("/login");
+  }
+});
+
+// New routes for scrolling and profile pages
+app.get("/scrolling", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("scrolling.ejs"); // Render scrolling.ejs
+  } else {
+    res.redirect("/login");
+  }
+});
+
+app.get("/profile", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("profile.ejs"); // Render profile.ejs
   } else {
     res.redirect("/login");
   }
@@ -82,7 +99,7 @@ app.post("/register", async (req, res) => {
     ]);
 
     if (checkResult.rows.length > 0) {
-      req.redirect("/login");
+      res.redirect("/login"); // Fixed typo: "req.redirect" to "res.redirect"
     } else {
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         if (err) {
@@ -116,15 +133,12 @@ passport.use(
         const storedHashedPassword = user.password;
         bcrypt.compare(password, storedHashedPassword, (err, valid) => {
           if (err) {
-            //Error with password check
             console.error("Error comparing passwords:", err);
             return cb(err);
           } else {
             if (valid) {
-              //Passed password check
               return cb(null, user);
             } else {
-              //Did not pass password check
               return cb(null, false);
             }
           }

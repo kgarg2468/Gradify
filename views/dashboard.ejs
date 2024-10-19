@@ -4,8 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css"> <!-- Corrected path -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .content {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #343a40; /* Dark background for sidebar */
+            color: white;
+            padding: 15px;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #495057; /* Darker background on hover */
+            color: #61dafb; /* Light color on hover */
+        }
+        .dashboard {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .dashboard-item {
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            margin-top: 10px;
+        }
+        .over-button {
+            background-color: green;
+            color: white;
+        }
+        .under-button {
+            background-color: red;
+            color: white;
+        }
+        .reaction-buttons {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .reaction {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            padding: 5px;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .reaction:hover {
+            border-color: #007BFF; /* Blue border on hover */
+        }
+        .reaction-count {
+            margin-left: 5px;
+            transition: transform 0.2s;
+        }
+        .animated {
+            animation: fly 0.5s forwards;
+        }
+        @keyframes fly {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #343a40; /* Dark background for footer */
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>Dashboard Page</h1>
+
+    <div class="content">
+        <div class="sidebar">
+            <h2>Navigation</h2>
+            <a href="/profile">Profile</a>
+            <a href="/post">Post</a> <!-- New Post option -->
+        </div>
+
+        <div class="dashboard">
+            <!-- Dashboard items -->
+            <div class="dashboard-item">
+                <h2>Operating Systems Midterm</h2>
+                <p>Over-Under me getting 75%?</p>
+                <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                <button class="under-button" onclick="guess(75, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Data Structures Midterm</h2>
+                <p>Over-Under me getting 30%?</p>
+                <button class="over-button" onclick="guess(30, true, this)">Over</button>
+                <button class="under-button" onclick="guess(30, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Algorithms Midterm</h2>
+                <p>Over-Under me getting 65%?</p>
+                <button class="over-button" onclick="guess(65, true, this)">Over</button>
+                <button class="under-button" onclick="guess(65, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Database Systems Midterm</h2>
+                <p>Over-Under me getting 50%?</p>
+                <button class="over-button" onclick="guess(50, true, this)">Over</button>
+                <button class="under-button" onclick="guess(50, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Computer Networks Midterm</h2>
+                <p>Over-Under me getting 40%?</p>
+                <button class="over-button" onclick="guess(40, true, this)">Over</button>
+                <button class="under-button" onclick="guess(40, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Software Engineering Midterm</h2>
+                <p>Over-Under me getting 80%?</p>
+                <button class="over-button" onclick="guess(80, true, this)">Over</button>
+                <button class="under-button" onclick="guess(80, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+
+            <div class="dashboard-item">
+                <h2>Web Development Midterm</h2>
+                <p>Over-Under me getting 90%?</p>
+                <button class="over-button" onclick="guess(90, true, this)">Over</button>
+                <button class="under-button" onclick="guess(90, false, this)">Under</button>
+                <div class="result hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Gradify 2024</p>
+    </footer>
+    <script>
+        async function guess(threshold, isOver, button) {
+            const correctGrade = 70; // Simulated correct grade; replace with logic to get the actual grade if necessary
+            const isCorrectGuess = (isOver && correctGrade >= threshold) || (!isOver && correctGrade < threshold);
+            const resultDiv = button.parentElement.querySelector('.result');
+            resultDiv.classList.remove('hidden');
+
+            // Fetch a random image from the API
+            const imageResponse = await fetch('https://picsum.photos/200'); // Random image API
+            const img = document.createElement('img');
+            img.src = imageResponse.url;
+            img.alt = 'Random Image';
+            img.style.maxWidth = '100%'; // Make the image responsive
+
+            // Description logic
+            let description;
+            if (isCorrectGuess) {
+                description = "Great job! You guessed correctly. Keep up the good work!";
+            } else {
+                description = "Oops! That's not correct. Remember to review your material.";
+            }
+
+            // Clear previous content and update result div
+            resultDiv.innerHTML = `${isCorrectGuess ? 'Correct!' : 'Incorrect!'} <br>${description} <br>`;
+            resultDiv.appendChild(img);
+
+            // Reaction buttons
+            const reactionDiv = document.createElement('div');
+            reactionDiv.className = 'reaction-buttons';
+            reactionDiv.innerHTML = `
+                <div class="reaction" onclick="handleReaction('👍', this)">
+                    <span>👍</span>
+                    <span class="reaction-count">0</span>
+                </div>
+                <div class="reaction" onclick="handleReaction('❤️', this)">
+                    <span>❤️</span>
+                    <span class="reaction-count">0</span>
+                </div>
+                <div class="reaction" onclick="handleReaction('😂', this)">
+                    <span>😂</span>
+                    <span class="reaction-count">0</span>
+                </div>
+            `;
+            resultDiv.appendChild(reactionDiv);
+        }
+
+        function handleReaction(reaction, element) {
+            const countElement = element.querySelector('.reaction-count');
+            let count = parseInt(countElement.innerText);
+            count += 1; // Increment the count
+            countElement.innerText = count; // Update the count
+
+            // Animation effect
+            element.classList.add('animated');
+            setTimeout(() => {
+                element.classList.remove('animated');
+            }, 500); // Remove the animation after 500ms
+        }
+    </script>
 </body>
 </html>
