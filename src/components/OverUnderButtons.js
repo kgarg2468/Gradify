@@ -1,16 +1,18 @@
 import React from 'react';
-import './OverUnderButtons.css';
 
-const OverUnderButtons = () => {
-  const handleClick = (choice) => {
-    console.log(choice);
-    // You can later integrate the backend call here
+const OverUnderButtons = ({ onCorrectGuess }) => {
+  const handleGuess = (guess) => {
+    const correctAnswer = 'Under'; // Assuming the correct answer is 'Under'
+    
+    if (guess === correctAnswer) {
+      onCorrectGuess(); // If guess is correct, trigger the callback to show the result screen
+    }
   };
 
   return (
     <div className="buttons">
-      <button onClick={() => handleClick('Over')}>Over</button>
-      <button onClick={() => handleClick('Under')}>Under</button>
+      <button onClick={() => handleGuess('Over')}>Over</button>
+      <button onClick={() => handleGuess('Under')}>Under</button>
     </div>
   );
 };

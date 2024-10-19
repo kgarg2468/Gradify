@@ -2,8 +2,33 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Full-page layout for the first section */
+.full-page {
+  height: 100vh; /* This ensures the first section covers the full viewport height */
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+/* Result section: Initially hidden with opacity 0 */
+.result-section {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out; /* Fade-in effect with transition */
   height: 100vh;
-  background-color: #f0f0f0;
-  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* When the section is visible, set opacity to 1 */
+.result-section.visible {
+  opacity: 1;
+}
+
+/* Optional: Add margin to separate content for better scrolling */
+#result-content {
+  margin-top: 50px;
 }
