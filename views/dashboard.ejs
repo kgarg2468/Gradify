@@ -46,6 +46,9 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 15px;
+            display: flex; /* Use flex to align items */
+            align-items: flex-start; /* Align items at the start */
+            gap: 10px; /* Space between profile pic and content */
         }
         .hidden {
             display: none;
@@ -82,22 +85,25 @@
             margin-left: 5px;
             transition: transform 0.2s;
         }
-        .animated {
-            animation: bounce 0.5s ease forwards;
-        }
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
         footer {
             text-align: center;
             padding: 10px;
             background: #343a40; /* Dark background for footer */
             color: white;
+        }
+        .profile-pic {
+            width: 50px; /* Fixed width for profile picture */
+            height: 50px; /* Fixed height for profile picture */
+            border-radius: 50%; /* Make it circular */
+            border: 2px solid #343a40; /* Border to match the sidebar */
+        }
+        .username {
+            color: #343a40; /* Username color */
+            font-weight: bold;
+            font-size: 14px; /* Username font size */
+        }
+        .text-content {
+            flex-grow: 1; /* Make text content take up remaining space */
         }
     </style>
 </head>
@@ -113,59 +119,101 @@
         <div class="dashboard">
             <!-- Dashboard items -->
             <div class="dashboard-item">
-                <h2>Operating Systems Midterm</h2>
-                <p>Over-Under me getting 75%?</p>
-                <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                <button class="under-button" onclick="guess(75, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Operating Systems Midterm</h2>
+                    <p>Over-Under me getting 75%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Data Structures Midterm</h2>
-                <p>Over-Under me getting 30%?</p>
-                <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                <button class="under-button" onclick="guess(30, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Data Structures Midterm</h2>
+                    <p>Over-Under me getting 30%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Algorithms Midterm</h2>
-                <p>Over-Under me getting 65%?</p>
-                <button class="over-button" onclick="guess(65, true, this)">Over</button>
-                <button class="under-button" onclick="guess(65, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Algorithms Midterm</h2>
+                    <p>Over-Under me getting 65%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(65, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(65, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Database Systems Midterm</h2>
-                <p>Over-Under me getting 50%?</p>
-                <button class="over-button" onclick="guess(50, true, this)">Over</button>
-                <button class="under-button" onclick="guess(50, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Database Systems Midterm</h2>
+                    <p>Over-Under me getting 50%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(50, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(50, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Computer Networks Midterm</h2>
-                <p>Over-Under me getting 40%?</p>
-                <button class="over-button" onclick="guess(40, true, this)">Over</button>
-                <button class="under-button" onclick="guess(40, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Computer Networks Midterm</h2>
+                    <p>Over-Under me getting 40%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(40, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(40, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Software Engineering Midterm</h2>
-                <p>Over-Under me getting 80%?</p>
-                <button class="over-button" onclick="guess(80, true, this)">Over</button>
-                <button class="under-button" onclick="guess(80, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Software Engineering Midterm</h2>
+                    <p>Over-Under me getting 80%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(80, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(80, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
 
             <div class="dashboard-item">
-                <h2>Web Development Midterm</h2>
-                <p>Over-Under me getting 90%?</p>
-                <button class="over-button" onclick="guess(90, true, this)">Over</button>
-                <button class="under-button" onclick="guess(90, false, this)">Under</button>
-                <div class="result hidden"></div>
+                <img class="profile-pic" src="" alt="Cat Profile Picture">
+                <div class="text-content">
+                    <div class="username"></div>
+                    <h2>Web Development Midterm</h2>
+                    <p>Over-Under me getting 90%?</p>
+                    <div class="reaction-buttons">
+                        <button class="over-button" onclick="guess(90, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(90, false, this)">Under</button>
+                    </div>
+                    <div class="result hidden"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -174,63 +222,49 @@
         <p>&copy; Gradify 2024</p>
     </footer>
     <script>
-        async function guess(threshold, isOver, button) {
-            const correctGrade = 70; // Simulated correct grade; replace with logic to get the actual grade if necessary
-            const isCorrectGuess = (isOver && correctGrade >= threshold) || (!isOver && correctGrade < threshold);
-            const resultDiv = button.parentElement.querySelector('.result');
-            resultDiv.classList.remove('hidden');
+        async function fetchCatData() {
+            const response = await fetch('https://api.thecatapi.com/v1/images/search');
+            const data = await response.json();
+            return data[0].url;
+        }
 
-            // Fetch a random image from the API
-            const imageResponse = await fetch('https://picsum.photos/200'); // Random image API
-            const img = document.createElement('img');
-            img.src = imageResponse.url;
-            img.alt = 'Random Image';
-            img.style.maxWidth = '100%'; // Make the image responsive
+        function generateRandomCatUsername() {
+            const catNames = ['Fluffy', 'Whiskers', 'Mr. Mittens', 'Shadow', 'Simba', 'Ginger', 'Luna', 'Mittens', 'Boots', 'Tiger'];
+            const randomIndex = Math.floor(Math.random() * catNames.length);
+            return catNames[randomIndex];
+        }
 
-            // Description logic
-            let description;
-            if (isCorrectGuess) {
-                description = "Great job! You guessed correctly. Keep up the good work!";
-            } else {
-                description = "Oops! That's not correct. Remember to review your material.";
+        async function setCatProfileData(item) {
+            const profilePic = item.querySelector('.profile-pic');
+            const usernameDiv = item.querySelector('.username');
+
+            // Fetch cat profile picture
+            const catPicUrl = await fetchCatData();
+            profilePic.src = catPicUrl;
+
+            // Set random cat username
+            const randomUsername = generateRandomCatUsername();
+            usernameDiv.textContent = randomUsername;
+        }
+
+        async function initializeDashboard() {
+            const dashboardItems = document.querySelectorAll('.dashboard-item');
+            for (const item of dashboardItems) {
+                await setCatProfileData(item);
             }
-
-            // Clear previous content and update result div
-            resultDiv.innerHTML = `${isCorrectGuess ? 'Correct!' : 'Incorrect!'} <br>${description} <br>`;
-            resultDiv.appendChild(img);
-
-            // Reaction buttons
-            const reactionDiv = document.createElement('div');
-            reactionDiv.className = 'reaction-buttons';
-            reactionDiv.innerHTML = `
-                <div class="reaction" onclick="handleReaction('👍', this)">
-                    <span>👍</span>
-                    <span class="reaction-count">0</span>
-                </div>
-                <div class="reaction" onclick="handleReaction('❤️', this)">
-                    <span>❤️</span>
-                    <span class="reaction-count">0</span>
-                </div>
-                <div class="reaction" onclick="handleReaction('😂', this)">
-                    <span>😂</span>
-                    <span class="reaction-count">0</span>
-                </div>
-            `;
-            resultDiv.appendChild(reactionDiv);
         }
 
-        function handleReaction(reaction, element) {
-            const countElement = element.querySelector('.reaction-count');
-            let count = parseInt(countElement.innerText);
-            count += 1; // Increment the count
-            countElement.innerText = count; // Update the count
-
-            // Animation effect
-            element.classList.add('animated');
+        function guess(threshold, isOver, button) {
+            const resultDiv = button.closest('.dashboard-item').querySelector('.result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.textContent = isOver ? `You guessed Over! Threshold was ${threshold}` : `You guessed Under! Threshold was ${threshold}`;
+            button.classList.add('animated');
             setTimeout(() => {
-                element.classList.remove('animated');
-            }, 500); // Remove the animation after 500ms
+                button.classList.remove('animated');
+            }, 500);
         }
+
+        document.addEventListener('DOMContentLoaded', initializeDashboard);
     </script>
 </body>
 </html>
