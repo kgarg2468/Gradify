@@ -14,12 +14,20 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
         }
-        .profile-container {
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            height: 60%;
+        }
+        .profile-container, .subject-container {
             text-align: center;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 45%;
         }
         .profile-pic {
             width: 150px;
@@ -34,7 +42,7 @@
             margin-bottom: 20px;
             color: purple;
         }
-        .reroll-button, .create-button {
+        .reroll-button, .create-button, .subject-button {
             padding: 10px 20px;
             font-size: 16px;
             background-color: #343a40;
@@ -45,7 +53,7 @@
             transition: background-color 0.3s;
             margin-top: 10px;
         }
-        .reroll-button:hover, .create-button:hover {
+        .reroll-button:hover, .create-button:hover, .subject-button:hover {
             background-color: #495057;
         }
         .create-button {
@@ -54,20 +62,43 @@
         .create-button:hover {
             background-color: #218838;
         }
+        .subject-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: purple;
+        }
+        .subject-button.active {
+            background-color: #28a745; /* Green color for selected subjects */
+        }
     </style>
 </head>
 <body>
 
-    <div class="profile-container">
-        <img class="profile-pic" src="" alt="Cat Picture">
-        <h3>You will be known as:</h3>
-        <div class="profile-name"></div>
-        <button class="reroll-button" onclick="generateProfile()">Reroll</button>
+    <div class="container">
+        <!-- Profile Generator Section -->
+        <div class="profile-container">
+            <img class="profile-pic" src="" alt="Cat Picture">
+            <h3>You will be known as:</h3>
+            <div class="profile-name"></div>
+            <button class="reroll-button" onclick="generateProfile()">Reroll</button>
 
-        <!-- Create Account Button -->
-        <form action="/dashboard" method="GET">
-            <button type="submit" class="create-button">Create Account</button>
-        </form>
+            <!-- Create Account Button -->
+            <form action="/dashboard" method="GET">
+                <button type="submit" class="create-button">Create Account</button>
+            </form>
+        </div>
+
+        <!-- Academic Subjects Section -->
+        <div class="subject-container">
+            <h3 class="subject-title">Select Academic Interests</h3>
+            <button class="subject-button" onclick="toggleSubject(this)">Mathematics</button>
+            <button class="subject-button" onclick="toggleSubject(this)">Physics</button>
+            <button class="subject-button" onclick="toggleSubject(this)">Computer Science</button>
+            <button class="subject-button" onclick="toggleSubject(this)">Engineering</button>
+            <button class="subject-button" onclick="toggleSubject(this)">Biology</button>
+            <button class="subject-button" onclick="toggleSubject(this)">Literature</button>
+        </div>
     </div>
 
     <script>
@@ -95,6 +126,10 @@
             // Generate new random cat name
             const randomCatName = generateRandomCatName();
             profileName.textContent = randomCatName;
+        }
+
+        function toggleSubject(button) {
+            button.classList.toggle('active'); // Toggle the 'active' class
         }
 
         // Initialize profile on page load

@@ -5,50 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
         }
+
         .content {
             display: flex;
+            flex: 1;
         }
+
         .sidebar {
-            width: 200px;
-            background-color: #343a40;
-            color: white;
+            width: 27%;
+            background-color: #ffffff;
+            color: #000000;
             padding: 15px;
+            font-family: 'Architects Daughter', cursive;
+            border-right: 1px solid #cccccc;
+            height: calc(100vh - 40px); /* Subtract footer height */
+            overflow-y: auto;
         }
+
         .sidebar h2 {
             margin-top: 0;
         }
         .sidebar a {
-            display: block;
-            color: white;
+            display: flex;
+            align-items: center;
+            color: #000000;
             text-decoration: none;
             padding: 10px;
             border-radius: 5px;
             transition: background-color 0.3s, color 0.3s;
         }
         .sidebar a:hover {
-            background-color: #495057;
-            color: #61dafb;
+            background-color: #f0f0f0;
+            color: #000000;
+        }
+        .sidebar i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .app-icon {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
         }
         .dashboard {
-            flex-grow: 1;
-            padding: 20px;
+            width: 46%;
+            display: flex;
+            flex-direction: column;
+            background-color: #90EE90;
+            height: calc(100vh - 40px); /* Subtract footer height */
+            overflow-y: auto;
+            padding: 0;
         }
         .dashboard-item {
-            background: white;
-            border-radius: 5px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            padding: 15px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            background-color: #ffffff; /* Keep items white */
+            color: #000000; 
+            padding: 20px;
+            margin-bottom: 20px; 
+            width: 100%;
+            box-shadow: none; 
+            border: none;
+            border-top: 1px solid #90EE90; /* Light green top border */
+            border-bottom: 1px solid #90EE90; /* Light green bottom border */
         }
         .hidden {
             display: none;
@@ -65,10 +95,50 @@
             color: white;
         }
         .reaction-buttons {
-            margin-top: 10px;
             display: flex;
-            gap: 15px;
-            padding: 5px 0;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .percent-container {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+
+        .percent {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .over-button,
+        .under-button {
+            background-color: transparent;
+            border: none;
+            color: #000000;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .over-button:hover,
+        .under-button:hover {
+            transform: scale(1.2);
+        }
+
+        .button-container span {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #000000;
         }
         .reaction {
             display: flex;
@@ -87,21 +157,26 @@
             margin-left: 5px;
         }
         footer {
+            height: 40px; /* Fixed height for footer */
             text-align: center;
             padding: 10px;
-            background: #343a40;
-            color: white;
+            background: #f0f0f0;
+            color: #000000;
         }
         .profile-pic {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: 2px solid #343a40;
+            vertical-align: middle;
         }
         .username {
-            color: #343a40;
+            color: #000000;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 18px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 10px;
         }
         .text-content {
             flex-grow: 1;
@@ -118,106 +193,319 @@
             font-size: 12px;
             margin-top: 5px;
         }
+        .right-section {
+            width: 30%;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            border-left: 1px solid #cccccc;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .search-container {
+            margin-bottom: 30px;
+        }
+
+        #tabSearch {
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #90EE90;
+            border-radius: 25px;
+            background-color: #f5f5f5;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        #tabSearch:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(144, 238, 144, 0.5);
+            background-color: #ffffff;
+        }
+
+        .quick-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .quick-tab {
+            padding: 12px 20px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #90EE90;
+            border-radius: 25px;
+            cursor: move;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+            text-align: center;
+            min-width: calc(50% - 15px);
+        }
+
+        .quick-tab:hover {
+            background-color: #90EE90;
+            color: #ffffff;
+        }
+
+        .dragging {
+            opacity: 0.5;
+        }
+
+        .tabs {
+            display: flex;
+            background-color: #ffffff;
+            padding: 10px 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tab {
+            flex-grow: 1;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #90EE90; /* Light green outline */
+            border-bottom: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.7em;
+            text-align: center;
+        }
+
+        .tab:last-child {
+            margin-right: 0;
+        }
+
+        .tab.active {
+            background-color: #90EE90; /* Light green background for selected tab */
+            border-bottom: 2px solid #90EE90; /* Match the background color */
+            color: #000000;
+        }
+
+        .tab-content {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-top: 20px;
+            background-color: #90EE90; /* Light green background */
+            border-top: 2px solid #90EE90; /* Light green top border for content area */
+        }
+
+        .subject {
+            color: #000000;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.5em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .dashboard-item .subject {
+            color: #000000 !important;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 1.5em;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .content-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            margin: 15px 0;
+        }
+
+        .me-too-button {
+            background-color: transparent;
+            border: 2px solid #4CAF50;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: block;
+            margin: 15px auto;
+        }
+
+        .me-too-button:hover {
+            background-color: #4CAF50;
+            color: #000000;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .quick-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .quick-tab {
+            padding: 8px 12px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border: 1px solid #cccccc;
+            border-radius: 20px;
+            cursor: move;
+            font-family: 'Architects Daughter', cursive;
+            font-size: 0.9em;
+            transition: background-color 0.3s;
+        }
+
+        .quick-tab:hover {
+            background-color: #e0e0e0;
+        }
+
+        .dragging {
+            opacity: 0.5;
+        }
     </style>
 </head>
 <body>
 
     <div class="content">
         <div class="sidebar">
-            <h2>Navigation</h2>
-            <a href="/profile">Profile</a>
-            <a href="/post">Post</a>
+            <div class="app-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <a href="/profile"><i class="fas fa-user"></i> Profile</a>
+            <a href="/post"><i class="fas fa-plus"></i> Post</a>
         </div>
 
         <div class="dashboard">
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Operating Systems Midterm</h2>
-                    <p>Over-Under me getting 75%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
+            <div class="tabs">
+                <div class="tab active" data-tab="tab1">Computer Science</div>
+                <div class="tab" data-tab="tab2">Social</div>
+                <div class="tab" data-tab="tab3">Science</div>
+            </div>
+            <div class="tab-content">
+                <div id="tab1" class="tab-pane active">
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username"></span>
+                        </div>
+                        <p class="subject">Operating Systems Midterm</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess(75, true, this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">75%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess(75, false, this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="result hidden"></div>
+                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                        <!-- Reactions removed -->
                     </div>
-                    <div class="result hidden"></div>
-                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">Ginger</span>
+                        </div>
+                        <p class="subject">Operating Systems Midterm</p>
+                        <img src="/images/Midterm.jpg" alt="Midterm related image" class="content-image">
+                        <button class="me-too-button">Me Too</button>
+                        <div class="result hidden"></div>
+                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     </div>
+                    
+                    <!-- More dashboard items for Tab 1 -->
+                </div>
+                <div id="tab2" class="tab-pane">
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username"></span>
+                        </div>
+                        <p class="subject">Psychology Exam</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess(75, true, this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">75%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess(75, false, this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="result hidden"></div>
+                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                        <!-- Reactions removed -->
+                    </div>
+                    <!-- More dashboard items for Tab 2 -->
+                </div>
+                <div id="tab3" class="tab-pane">
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username"></span>
+                        </div>
+                        <p class="subject">Operating Systems Midterm</p>
+                        <p>Over-Under me getting 75%?</p>
+                        <div class="reaction-buttons">
+                            <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                            <button class="under-button" onclick="guess(75, false, this)">Under</button>
+                        </div>
+                        <div class="result hidden"></div>
+                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                        <!-- Reactions removed -->
+                    </div>
+                    <!-- More dashboard items for Tab 3 -->
                 </div>
             </div>
+        </div>
 
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Operating Systems Midterm</h2>
-                    <p>Over-Under me getting 75%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
-                    </div>
-                    <div class="result hidden"></div>
-                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
-                    </div>
-                </div>
+        <div class="right-section">
+            <div class="search-container">
+                <input type="text" id="tabSearch" placeholder="Search for tabs...">
             </div>
-
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Operating Systems Midterm</h2>
-                    <p>Over-Under me getting 75%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
-                    </div>
-                    <div class="result hidden"></div>
-                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
-                    </div>
-                </div>
+            <div class="quick-tabs">
+                <div class="quick-tab" draggable="true">Math</div>
+                <div class="quick-tab" draggable="true">History</div>
+                <div class="quick-tab" draggable="true">Physical</div>
+                <div class="quick-tab" draggable="true">Biology</div>
+                <div class="quick-tab" draggable="true">Chemistry</div>
+                <div class="quick-tab" draggable="true">Physics</div>
             </div>
-
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Operating Systems Midterm</h2>
-                    <p>Over-Under me getting 75%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
-                    </div>
-                    <div class="result hidden"></div>
-                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
-                    </div>
-                </div>
+            <div id="availableTabs" class="available-tabs">
+                <!-- Available tabs will be dynamically added here -->
             </div>
-
-            <!-- Add more dashboard-items as needed -->
-
         </div>
     </div>
 
-    <footer>
+    <!-- <footer>
         <p>&copy; Gradify 2024</p>
-    </footer>
+    </footer> -->
 
     <script>
         // Randomly generate a number between 1 and 1000
@@ -291,6 +579,110 @@
 
         // Initialize the dashboard on page load
         document.addEventListener('DOMContentLoaded', initializeDashboard);
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs and tab panes
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabPanes.forEach(p => p.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+
+                    // Show corresponding tab pane
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabContainer = document.querySelector('.tabs');
+            const availableTabsContainer = document.getElementById('availableTabs');
+            const searchInput = document.getElementById('tabSearch');
+            const quickTabs = document.querySelectorAll('.quick-tab');
+
+            // Function to create a new tab
+            function createNewTab(tabName) {
+                const newTab = document.createElement('div');
+                newTab.className = 'tab';
+                newTab.textContent = tabName;
+                newTab.setAttribute('data-tab', `tab${tabContainer.children.length + 1}`);
+                tabContainer.appendChild(newTab);
+
+                // Create corresponding tab pane
+                const newTabPane = document.createElement('div');
+                newTabPane.id = `tab${tabContainer.children.length}`;
+                newTabPane.className = 'tab-pane';
+                newTabPane.innerHTML = `<div class="dashboard-item"><p>Content for ${tabName}</p></div>`;
+                document.querySelector('.tab-content').appendChild(newTabPane);
+
+                initializeTabEvents();
+            }
+
+            // Drag and drop functionality
+            function dragStart(e) {
+                e.dataTransfer.setData('text/plain', e.target.textContent);
+                e.target.classList.add('dragging');
+            }
+
+            function dragEnd(e) {
+                e.target.classList.remove('dragging');
+            }
+
+            quickTabs.forEach(tab => {
+                tab.addEventListener('dragstart', dragStart);
+                tab.addEventListener('dragend', dragEnd);
+            });
+
+            tabContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+
+            tabContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const tabName = e.dataTransfer.getData('text');
+                createNewTab(tabName);
+            });
+
+            // Click functionality for quick tabs
+            quickTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    createNewTab(this.textContent);
+                });
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                quickTabs.forEach(tab => {
+                    const tabName = tab.textContent.toLowerCase();
+                    tab.style.display = tabName.includes(searchTerm) ? 'inline-block' : 'none';
+                });
+            });
+
+            function initializeTabEvents() {
+                const tabs = document.querySelectorAll('.tab');
+                const tabPanes = document.querySelectorAll('.tab-pane');
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        tabPanes.forEach(p => p.classList.remove('active'));
+                        this.classList.add('active');
+                        const tabId = this.getAttribute('data-tab');
+                        document.getElementById(tabId).classList.add('active');
+                    });
+                });
+            }
+
+            // Initialize tab events
+            initializeTabEvents();
+        });
     </script>
 </body>
 </html>

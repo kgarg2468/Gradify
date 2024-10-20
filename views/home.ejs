@@ -1,50 +1,40 @@
 <%- include('partials/header.ejs') %>
 
+<link rel="stylesheet" href="/styles/styles.css"> <!-- Link to your CSS file -->
+
 <div class="content">
     <div class="summary">
         <div class="image-summary">
-            <div class="image-container">
-                <img src="/images/susDog.jpeg" class="rPic" alt="Website Image">
-            </div>
+            <img src="/images/Gradify.png" alt="Gradify" class="summary-image" /> <!-- Use an img tag -->
             <div class="text-container">
                 <p>Think you're alone in your education journey? Gradify will show you that you're not the only one! Meet others who have had similar experiences as you!</p>
             </div>
         </div>
-        <div class="auth-buttons">
-            <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
-            <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
-        </div>
+    </div>
+
+    <div class="auth-buttons">
+        <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
+        <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
     </div>
 
     <div class="features">
         <div class="feature">
-            <div class="feature-image">
-                <img src="/images/susDog.jpeg" alt="Feature 1 Image">
-            </div>
             <div class="feature-text">
                 <h3>Anonymity</h3>
-                <p>Description of feature 1.</p>
+                <p>Share your thoughts freely without judgment. Your privacy is our priority, enabling honest connections.</p>
             </div>
         </div>
         <div class="feature">
-            <div class="feature-image">
-                <img src="/images/susDog.jpeg" alt="Feature 2 Image">
-            </div>
             <div class="feature-text">
-                <h3>You're not alone!</h3>
-                <p>Description of feature 2.</p>
+                <h3>You're Not Alone!</h3>
+                <p>Join a supportive community of students. Exchange ideas and find encouragement in your educational journey.</p>
             </div>
         </div>
         <div class="feature">
-            <div class="feature-image">
-                <img src="/images/susDog.jpeg" alt="Feature 3 Image">
-            </div>
             <div class="feature-text">
-                <h3>Turn your not so good into something</h3>
-                <p>Description of feature 3.</p>
+                <h3>Learn and Grow</h3>
+                <p>Turn setbacks into growth opportunities. Share struggles and learn valuable lessons to achieve your goals.</p>
             </div>
         </div>
     </div>
 </div>
-
-<%- include('partials/footer.ejs') %>

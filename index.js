@@ -6,11 +6,15 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv";
+import Groq from "groq-sdk";
+
+env.config();
+
+const groq = new Groq({apiKey: process.env.GROQ_API_KEY})
 
 const app = express();
 const port = 3000;
 const saltRounds = 10;
-env.config();
 
 app.set("view engine", "ejs"); // Set EJS as the template engine
 app.use(
@@ -89,6 +93,9 @@ app.get("/create", (req, res) => {
   }
 });
 
+app.get('/feedback', (req, res) => {
+  res.render('feedback'); // Adjust to your actual feedback EJS file
+});
 
 app.post(
   "/login",
@@ -108,7 +115,7 @@ app.post("/register", async (req, res) => {
     ]);
 
     if (checkResult.rows.length > 0) {
-      res.redirect("/login"); // Fixed typo: "req.redirect" to "res.redirect"
+      res.redirect("/create"); // Fixed typo: "req.redirect" to "res.redirect"
     } else {
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         if (err) {
@@ -160,6 +167,31 @@ passport.use(
     }
   })
 );
+
+app.post("/api/chat", async (req, res) => {
+  const userMessage = req.body.message;
+
+  try {
+    // Call Groq API for chat completions
+    const completion = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: "What are some suggestoins you can give me to improve on Data Structure, and what are some links for help for my next midterm", // Use user input for the message content
+        },
+      ],
+      model: "mixtral-8x7b-32768", // Specify the model to use
+    });
+
+    // Get the bot's response
+    const botResponse = completion.choices[0]?.message?.content || "Sorry, I didn't understand that.";
+    res.json({ response: botResponse }); // Send response back to the client
+  } catch (error) {
+    console.error("Error with Groq API:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 
 passport.serializeUser((user, cb) => {
   cb(null, user);

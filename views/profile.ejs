@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="/public/css/profile.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="/css/profile.css"> <!-- Link to your CSS file -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -40,6 +40,8 @@
             text-align: center;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
+            text-decoration: none; /* Remove underline from links */
+            color: inherit; /* Inherit text color */
         }
 
         .post:hover {
@@ -110,8 +112,9 @@
         function displayPosts() {
             const postsContainer = document.getElementById('posts');
             postsData.forEach(post => {
-                const postDiv = document.createElement('div');
+                const postDiv = document.createElement('a'); // Create anchor tag
                 postDiv.classList.add('post');
+                postDiv.href = '/feedback'; // Set the href to your feedback page
                 postDiv.innerHTML = `
                     <img src="${post.image}" alt="${post.title}">
                     <div class="post-title">${post.title}</div>

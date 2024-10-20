@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link rel="stylesheet" href="/css/feedback.css"> <!-- Link to your CSS file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: auto;
+            gap: 20px;
+        }
+
+        .post-summary {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat {
+            flex: 1;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 500px; /* Fixed height for chat area */
+            overflow-y: auto; /* Enable scrolling */
+        }
+
+        .post-summary img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .chat-messages {
+            height: 400px; /* Height for the chat messages area */
+            overflow-y: auto; /* Scroll if overflow */
+            margin-bottom: 10px;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .user-message {
+            background: #d1f7d1; /* Light green for user messages */
+            align-self: flex-end; /* Align user messages to the right */
+        }
+
+        .bot-message {
+            background: #f1f1f1; /* Light gray for bot messages */
+            align-self: flex-start; /* Align bot messages to the left */
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .input-area button {
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745; /* Green button */
+            color: white;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="post-summary">
+            <h2>Post Summary</h2>
+            <img src="https://picsum.photos/300/200?random=1" alt="Post Image"> <!-- Example image -->
+            <h3>Post Title</h3>
+            <p>I finally climbed to the top of the wall. It was an amazing experience!</p> <!-- Example summary -->
+        </div>
+        <div class="chat">
+            <h2>Chat with AI</h2>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="user-input" placeholder="Type your message..." />
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessagesContainer = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+
+        // Function to append a message to the chat
+        function appendMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('message', isUser ? 'user-message' : 'bot-message');
+            messageDiv.textContent = message;
+            chatMessagesContainer.appendChild(messageDiv);
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight; // Scroll to the bottom
+        }
+
+        // Event listener for the send button
+        sendButton.addEventListener('click', async () => {
+            const userMessage = userInput.value.trim(); // Trim whitespace
+            if (userMessage) {
+                appendMessage(userMessage, true); // Add user message
+                userInput.value = ''; // Clear input
+
+                // Fetch bot response from Groq API
+                const botResponse = await fetchBotResponse(userMessage);
+                appendMessage(botResponse, false); // Add bot message
+            }
+        });
+
+        // Function to fetch response from Groq API
+        async function fetchBotResponse(userMessage) {
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                return data.response || "Sorry, I couldn't get a response from the AI."; // Ensure fallback message
+            } catch (error) {
+                console.error('Error fetching bot response:', error);
+                return "Sorry, I couldn't get a response from the AI."; // Fallback message for error
+            }
+        }
+    </script>
+</body>
+</html>
