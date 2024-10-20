@@ -94,6 +94,8 @@
             border: none;
             border-top: 1px solid #90EE90; /* Light green top border */
             border-bottom: 1px solid #90EE90; /* Light green bottom border */
+            position: relative;
+            overflow: hidden;
         }
         .hidden {
             display: none;
@@ -142,12 +144,22 @@
             color: #000000;
             font-size: 24px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: background-color 0.3s;
+            padding: 5px;
+            border-radius: 50%;
         }
 
         .over-button:hover,
         .under-button:hover {
-            transform: scale(1.2);
+            background-color: #f0f0f0;
+        }
+
+        .correct-guess {
+            color: #4CAF50; /* Green color for correct guesses */
+        }
+
+        .incorrect-guess {
+            color: #F44336; /* Red color for incorrect guesses */
         }
 
         .button-container span {
@@ -204,9 +216,11 @@
             border-top: 1px solid #e0e0e0;
         }
         .small-grey-text {
-            color: grey;
-            font-size: 12px;
-            margin-top: 5px;
+            color: #000000; /* Changed from grey to black to match the subject */
+            font-family: Quicksand;
+            font-size: 1.5em; /* Matches the subject font size */
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
         .right-section {
             width: 30%;
@@ -357,19 +371,45 @@
 
         .me-too-button {
             background-color: transparent;
-            border: 2px solid #4CAF50;
-            color: #ffffff;
-            padding: 10px 20px;
-            font-size: 16px;
+            border: none;
+            color: #000000;
+            font-size: 24px;
             cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            display: block;
-            margin: 15px auto;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
         }
 
         .me-too-button:hover {
-            background-color: #4CAF50;
-            color: #000000;
+            transform: scale(1.1);
+        }
+
+        .me-too-count {
+            font-size: 16px;
+            margin-left: 5px;
+        }
+
+        @keyframes expandAndFade {
+            0% { 
+                opacity: 0.8; 
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(5);
+            }
+        }
+
+        .me-too-animation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 48px;
+            color: #90EE90;
+            pointer-events: none;
+            animation: expandAndFade 0.8s forwards;
+            z-index: 10;
         }
 
         .tab-pane {
@@ -415,6 +455,7 @@
             <div class="app-icon">
                 <i class="fas fa-graduation-cap"></i>
             </div>
+            <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
             <a href="/profile"><i class="fas fa-user"></i> Profile</a>
             <a href="/create-post"><i class="fas fa-plus"></i> Post</a>
         </div>
@@ -422,12 +463,12 @@
         <div class="dashboard">
             <div class="tabs">
                 <div class="tab active" data-tab="tab1">Computer Science</div>
-                <div class="tab" data-tab="tab2">Social</div>
+                <div class="tab" data-tab="tab2">Psychology</div>
                 <div class="tab" data-tab="tab3">Science</div>
             </div>
             <div class="tab-content">
                 <div id="tab1" class="tab-pane active">
-                    <div class="dashboard-item">
+                    <div class="dashboard-item" data-correct-answer="over">
                         <div>
                             <img class="profile-pic" src="" alt="Profile Picture">
                             <span class="username"></span>
@@ -435,7 +476,7 @@
                         <p class="subject">Operating Systems Midterm</p>
                         <div class="reaction-buttons">
                             <div class="button-container">
-                                <button class="over-button" onclick="guess(75, true, this)">
+                                <button class="over-button" onclick="guess('over', this)">
                                     <i class="fas fa-arrow-up"></i>
                                 </button>
                                 <span>Over</span>
@@ -444,40 +485,206 @@
                                 <span class="percent">75%</span>
                             </div>
                             <div class="button-container">
-                                <button class="under-button" onclick="guess(75, false, this)">
+                                <button class="under-button" onclick="guess('under', this)">
                                     <i class="fas fa-arrow-down"></i>
                                 </button>
                                 <span>Under</span>
                             </div>
                         </div>
-                        <div class="result hidden"></div>
-                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                        <!-- Reactions removed -->
+                        <div class="small-grey-text hidden">Haha :) Failed that shit</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
                     </div>
                     <div class="dashboard-item">
                         <div>
                             <img class="profile-pic" src="" alt="Profile Picture">
                             <span class="username">Ginger</span>
                         </div>
-                        <p class="subject">Operating Systems Midterm</p>
+                        <p class="subject">Statistical Machine Learning Quiz was hard ASF</p>
                         <img src="/images/Midterm.jpg" alt="Midterm related image" class="content-image">
-                        <button class="me-too-button">Me Too</button>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
                         <div class="result hidden"></div>
                         <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+                    </div>
+                    <div id="computerscienceTemplate">
+                        <div class="dashboard-item" data-correct-answer="under">
+                            <div>
+                                <img class="profile-pic" src="" alt="Profile Picture">
+                                <span class="username">CodeMaster</span>
+                            </div>
+                            <p class="subject">Data Structures Exam</p>
+                            <div class="reaction-buttons">
+                                <div class="button-container">
+                                    <button class="over-button" onclick="guess('over', this)">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <span>Over</span>
+                                </div>
+                                <div class="percent-container">
+                                    <span class="percent">75%</span>
+                                </div>
+                                <div class="button-container">
+                                    <button class="under-button" onclick="guess('under', this)">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                    <span>Under</span>
+                                </div>
+                            </div>
+                            <div class="small-grey-text hidden">Binary trees tripped me up!</div>
+                            <button class="me-too-button" onclick="meToo(this)">
+                                <i class="fas fa-hand-peace"></i>
+                                <span class="me-too-count">0</span>
+                            </button>
+                        </div>
+    
+                        <div class="dashboard-item">
+                            <div>
+                                <img class="profile-pic" src="" alt="Profile Picture">
+                                <span class="username">AIEnthusiast</span>
+                            </div>
+                            <p class="subject">Machine Learning Project</p>
+                            <img src="/images/ml_project.jpg" alt="Machine Learning diagram" class="content-image">
+                            <button class="me-too-button" onclick="meToo(this)">
+                                <i class="fas fa-hand-peace"></i>
+                                <span class="me-too-count">0</span>
+                            </button>
+                        </div>
+    
+                        <div class="dashboard-item" data-correct-answer="over">
+                            <div>
+                                <img class="profile-pic" src="" alt="Profile Picture">
+                                <span class="username">NetworkNinja</span>
+                            </div>
+                            <p class="subject">Computer Networks Quiz</p>
+                            <div class="reaction-buttons">
+                                <div class="button-container">
+                                    <button class="over-button" onclick="guess('over', this)">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <span>Over</span>
+                                </div>
+                                <div class="percent-container">
+                                    <span class="percent">80%</span>
+                                </div>
+                                <div class="button-container">
+                                    <button class="under-button" onclick="guess('under', this)">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                    <span>Under</span>
+                                </div>
+                            </div>
+                            <div class="small-grey-text hidden">TCP/IP is my forte!</div>
+                            <button class="me-too-button" onclick="meToo(this)">
+                                <i class="fas fa-hand-peace"></i>
+                                <span class="me-too-count">0</span>
+                            </button>
+                        </div>
+    
+                        <div class="dashboard-item">
+                            <div>
+                                <img class="profile-pic" src="" alt="Profile Picture">
+                                <span class="username">WebDevWizard</span>
+                            </div>
+                            <p class="subject">Full Stack Development Project</p>
+                            <img src="/images/web_dev_project.jpg" alt="Web Development screenshot" class="content-image">
+                            <button class="me-too-button" onclick="meToo(this)">
+                                <i class="fas fa-hand-peace"></i>
+                                <span class="me-too-count">0</span>
+                            </button>
+                        </div>
+    
+                        <div class="dashboard-item" data-correct-answer="under">
+                            <div>
+                                <img class="profile-pic" src="" alt="Profile Picture">
+                                <span class="username">AlgoAce</span>
+                            </div>
+                            <p class="subject">Algorithm Analysis Midterm</p>
+                            <div class="reaction-buttons">
+                                <div class="button-container">
+                                    <button class="over-button" onclick="guess('over', this)">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </button>
+                                    <span>Over</span>
+                                </div>
+                                <div class="percent-container">
+                                    <span class="percent">70%</span>
+                                </div>
+                                <div class="button-container">
+                                    <button class="under-button" onclick="guess('under', this)">
+                                        <i class="fas fa-arrow-down"></i>
+                                    </button>
+                                    <span>Under</span>
+                                </div>
+                            </div>
+                            <img src="/images/AlgoAnalysis.jpg" alt="Algorithm complexity graph" class="content-image">
+                            <div class="small-grey-text hidden">Big O notation is tricky!</div>
+                            <button class="me-too-button" onclick="meToo(this)">
+                                <i class="fas fa-hand-peace"></i>
+                                <span class="me-too-count">0</span>
+                            </button>
+                        </div>
                     </div>
                     
                     <!-- More dashboard items for Tab 1 -->
                 </div>
                 <div id="tab2" class="tab-pane">
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">CognitivePro</span>
+                        </div>
+                        <p class="subject">Cognitive Psychology Exam</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">85%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Memory models are fascinating!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
                     <div class="dashboard-item">
                         <div>
                             <img class="profile-pic" src="" alt="Profile Picture">
-                            <span class="username"></span>
+                            <span class="username">BehaviorAnalyst</span>
                         </div>
-                        <p class="subject">Psychology Exam</p>
+                        <p class="subject">Behavioral Psychology Research</p>
+                        <img src="/images/behavioral_experiment.jpg" alt="Behavioral experiment setup" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">NeuroPsych</span>
+                        </div>
+                        <p class="subject">Neuropsychology Midterm</p>
                         <div class="reaction-buttons">
                             <div class="button-container">
-                                <button class="over-button" onclick="guess(75, true, this)">
+                                <button class="over-button" onclick="guess('over', this)">
                                     <i class="fas fa-arrow-up"></i>
                                 </button>
                                 <span>Over</span>
@@ -486,35 +693,539 @@
                                 <span class="percent">75%</span>
                             </div>
                             <div class="button-container">
-                                <button class="under-button" onclick="guess(75, false, this)">
+                                <button class="under-button" onclick="guess('under', this)">
                                     <i class="fas fa-arrow-down"></i>
                                 </button>
                                 <span>Under</span>
                             </div>
                         </div>
-                        <div class="result hidden"></div>
-                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                        <!-- Reactions removed -->
+                        <img src="/images/brain_regions.jpg" alt="Brain regions diagram" class="content-image">
+                        <div class="small-grey-text hidden">Brain regions are complex!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
                     </div>
-                    <!-- More dashboard items for Tab 2 -->
-                </div>
-                <div id="tab3" class="tab-pane">
+
                     <div class="dashboard-item">
                         <div>
                             <img class="profile-pic" src="" alt="Profile Picture">
-                            <span class="username"></span>
+                            <span class="username">SocialPsychStudent</span>
                         </div>
-                        <p class="subject">Operating Systems Midterm</p>
-                        <p>Over-Under me getting 75%?</p>
-                        <div class="reaction-buttons">
-                            <button class="over-button" onclick="guess(75, true, this)">Over</button>
-                            <button class="under-button" onclick="guess(75, false, this)">Under</button>
-                        </div>
-                        <div class="result hidden"></div>
-                        <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-                        <!-- Reactions removed -->
+                        <p class="subject">Social Psychology Group Project</p>
+                        <img src="/images/social_experiment.jpg" alt="Social psychology experiment" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
                     </div>
-                    <!-- More dashboard items for Tab 3 -->
+
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">ClinicalIntern</span>
+                        </div>
+                        <p class="subject">Clinical Psychology Case Study</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">90%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Diagnosis was challenging but rewarding!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="tab3" class="tab-pane">
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">ChemWhiz</span>
+                        </div>
+                        <p class="subject">Organic Chemistry Lab Report</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">80%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Synthesis reactions are tricky!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">PhysicsNerd</span>
+                        </div>
+                        <p class="subject">Quantum Mechanics Simulation</p>
+                        <img src="/images/quantum_simulation.jpg" alt="Quantum mechanics simulation" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">BiologyFan</span>
+                        </div>
+                        <p class="subject">Genetics Final Exam</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">85%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <img src="/images/dna_structure.jpg" alt="DNA structure" class="content-image">
+                        <div class="small-grey-text hidden">Mendelian genetics saved me!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">EarthScientist</span>
+                        </div>
+                        <p class="subject">Geology Field Trip Report</p>
+                        <img src="/images/rock_formations.jpg" alt="Rock formations" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">AstroEnthusiast</span>
+                        </div>
+                        <p class="subject">Astrophysics Quiz</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">70%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Black holes are mind-bending!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="tabTemplates" style="display: none;">
+                <div id="mathTemplate">
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">MathWhiz</span>
+                        </div>
+                        <p class="subject">Calculus Midterm</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">80%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Derivatives were a breeze!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">AlgebraPro</span>
+                        </div>
+                        <p class="subject">Linear Algebra Homework</p>
+                        <img src="/images/linear_algebra.jpg" alt="Linear Algebra diagram" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">StatsFan</span>
+                        </div>
+                        <p class="subject">Statistics Final</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">70%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">P-values got me confused!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">GeometryLover</span>
+                        </div>
+                        <p class="subject">Euclidean Geometry Proof</p>
+                        <img src="/images/geometry_proof.jpg" alt="Geometry proof" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">NumberTheoryNerd</span>
+                        </div>
+                        <p class="subject">Number Theory Quiz</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">85%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <img src="/images/number_theory.jpg" alt="Number theory concepts" class="content-image">
+                        <div class="small-grey-text hidden">Prime factorization is my jam!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div id="psychologyTemplate">
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">CognitivePro</span>
+                        </div>
+                        <p class="subject">Cognitive Psychology Exam</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">85%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Memory models are fascinating!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">BehaviorAnalyst</span>
+                        </div>
+                        <p class="subject">Behavioral Psychology Research</p>
+                        <img src="/images/behavioral_experiment.jpg" alt="Behavioral experiment setup" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">NeuroPsych</span>
+                        </div>
+                        <p class="subject">Neuropsychology Midterm</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">75%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <img src="/images/brain_regions.jpg" alt="Brain regions diagram" class="content-image">
+                        <div class="small-grey-text hidden">Brain regions are complex!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">SocialPsychStudent</span>
+                        </div>
+                        <p class="subject">Social Psychology Group Project</p>
+                        <img src="/images/social_experiment.jpg" alt="Social psychology experiment" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">ClinicalIntern</span>
+                        </div>
+                        <p class="subject">Clinical Psychology Case Study</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">90%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Diagnosis was challenging but rewarding!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="scienceTemplate">
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">ChemWhiz</span>
+                        </div>
+                        <p class="subject">Organic Chemistry Lab Report</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">80%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Synthesis reactions are tricky!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">PhysicsNerd</span>
+                        </div>
+                        <p class="subject">Quantum Mechanics Simulation</p>
+                        <img src="/images/quantum_simulation.jpg" alt="Quantum mechanics simulation" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="over">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">BiologyFan</span>
+                        </div>
+                        <p class="subject">Genetics Final Exam</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">85%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <img src="/images/dna_structure.jpg" alt="DNA structure" class="content-image">
+                        <div class="small-grey-text hidden">Mendelian genetics saved me!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">EarthScientist</span>
+                        </div>
+                        <p class="subject">Geology Field Trip Report</p>
+                        <img src="/images/rock_formations.jpg" alt="Rock formations" class="content-image">
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
+
+                    <div class="dashboard-item" data-correct-answer="under">
+                        <div>
+                            <img class="profile-pic" src="" alt="Profile Picture">
+                            <span class="username">AstroEnthusiast</span>
+                        </div>
+                        <p class="subject">Astrophysics Quiz</p>
+                        <div class="reaction-buttons">
+                            <div class="button-container">
+                                <button class="over-button" onclick="guess('over', this)">
+                                    <i class="fas fa-arrow-up"></i>
+                                </button>
+                                <span>Over</span>
+                            </div>
+                            <div class="percent-container">
+                                <span class="percent">70%</span>
+                            </div>
+                            <div class="button-container">
+                                <button class="under-button" onclick="guess('under', this)">
+                                    <i class="fas fa-arrow-down"></i>
+                                </button>
+                                <span>Under</span>
+                            </div>
+                        </div>
+                        <div class="small-grey-text hidden">Black holes are mind-bending!</div>
+                        <button class="me-too-button" onclick="meToo(this)">
+                            <i class="fas fa-hand-peace"></i>
+                            <span class="me-too-count">0</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -598,17 +1309,29 @@
             }
         }
 
-        function guess(threshold, isOver, button) {
+        function guess(guessedAnswer, button) {
             const item = button.closest('.dashboard-item');
-            const resultDiv = item.querySelector('.result');
-            const reactionsDiv = item.querySelector('.reactions');
             const smallGreyText = item.querySelector('.small-grey-text');
+            const overButton = item.querySelector('.over-button');
+            const underButton = item.querySelector('.under-button');
             
-            resultDiv.classList.remove('hidden');
+            // Reveal the small-grey-text
             smallGreyText.classList.remove('hidden');
-            reactionsDiv.classList.remove('hidden');
 
-            resultDiv.textContent = isOver ? `You guessed Over! Threshold was ${threshold}` : `You guessed Under! Threshold was ${threshold}`;
+            // Simulate the actual result (you would replace this with your actual logic)
+            const actualResult = Math.random() >= 0.5; // Random true/false for demonstration
+
+            const isCorrect = (guessedAnswer === 'over' && actualResult) || (guessedAnswer === 'under' && !actualResult);
+
+            if (isCorrect) {
+                button.classList.add('correct-guess');
+            } else {
+                button.classList.add('incorrect-guess');
+            }
+
+            // Disable both buttons after a guess
+            overButton.disabled = true;
+            underButton.disabled = true;
         }
 
         function react(reactionType, reactionElement) {
@@ -667,7 +1390,19 @@
                 const newTabPane = document.createElement('div');
                 newTabPane.id = `tab${tabContainer.children.length}`;
                 newTabPane.className = 'tab-pane';
-                newTabPane.innerHTML = `<div class="dashboard-item"><p>Content for ${tabName}</p></div>`;
+                
+                // Get the template for this subject
+                const templateId = `${tabName.toLowerCase()}Template`;
+                const template = document.getElementById(templateId);
+                
+                if (template) {
+                    // Clone the template content
+                    newTabPane.innerHTML = template.innerHTML;
+                } else {
+                    // Fallback content if no template exists
+                    newTabPane.innerHTML = `<div class="dashboard-item"><p>Content for ${tabName}</p></div>`;
+                }
+                
                 tabContentContainer.appendChild(newTabPane);
 
                 initializeTabEvents();
@@ -747,6 +1482,23 @@
             // Initialize tab events
             initializeTabEvents();
         });
+
+        function meToo(button) {
+            const dashboardItem = button.closest('.dashboard-item');
+            const countSpan = button.querySelector('.me-too-count');
+            let count = parseInt(countSpan.textContent);
+            count++;
+            countSpan.textContent = count;
+
+            const animation = document.createElement('i');
+            animation.className = 'fas fa-hand-peace me-too-animation';
+            
+            dashboardItem.appendChild(animation);
+            
+            setTimeout(() => {
+                dashboardItem.removeChild(animation);
+            }, 800);
+        }
     </script>
 </body>
 </html>
