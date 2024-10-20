@@ -5,6 +5,10 @@ body {
   background-color: #E9F7EF; /* Light green background */
 }
 
+* {
+ font-family: Quicksand;
+}
+
 header {
   background-color: #1B5E20; /* Dark green header */
   color: #FFFFFF; /* White text */
@@ -158,7 +162,7 @@ footer {
 }
 
 .auth-buttons .btn {
-  animation: pulse 1.5s infinite; /* Animation for buttons */
+  animation: pulse 3.1s infinite; /* Animation for buttons */
 }
 
 @keyframes pulse {

@@ -97,6 +97,10 @@ app.get('/feedback', (req, res) => {
   res.render('feedback'); // Adjust to your actual feedback EJS file
 });
 
+app.get('/create-post', (req, res) => {
+  res.render('CreatePost'); // Adjust to your actual feedback EJS file
+});
+
 app.post(
   "/login",
   passport.authenticate("local", {

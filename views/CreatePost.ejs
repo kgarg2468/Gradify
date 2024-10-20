@@ -1,0 +1,98 @@
+<%- include('partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Post</title>
+    <style>
+        body {
+            font-family: 'Quicksand';
+            background-color: #f9f9f9; /* Light background color */
+            color: #333; /* Darker text for better contrast */
+            max-width: 800px; /* Wider max width for better readability */
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 8px; /* Rounded corners for a modern feel */
+        }
+
+        * {
+ font-family: Quicksand;
+}
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #28a745; /* Green color for the title */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between form elements */
+        }
+        label {
+            font-weight: bold; /* Bold labels for better visibility */
+            margin-bottom: 5px; /* Space between label and input */
+        }
+        input, select, textarea {
+            padding: 10px; /* Padding for input fields */
+            border-radius: 5px; /* Rounded corners */
+            border: 1px solid #ccc; /* Light border */
+            transition: border-color 0.3s; /* Smooth transition for border color */
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #28a745; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+        }
+        button {
+            padding: 10px 15px; /* Padding for buttons */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #28a745; /* Green button */
+            color: white; /* White text */
+            font-weight: bold; /* Bold text for buttons */
+            cursor: pointer; /* Pointer cursor for buttons */
+            transition: background-color 0.3s; /* Smooth transition for background color */
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+        .back-button {
+            background-color: #218838; /* Blue color for the back button */
+        }
+        .back-button:hover {
+            background-color: darkgreen; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>Create a New Post</h1>
+    <form action="/create-post" method="GET">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="">Select a category</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Physics">Physics</option>
+            <option value="Art History">Art History</option>
+        </select>
+
+        <label for="type">Type:</label>
+        <select id="type" name="type" required>
+            <option value="High Low">High Low</option>
+            <option value="Me Too">Me Too</option>
+        </select>
+
+        <label for="caption">Caption:</label>
+        <input type="text" id="caption" name="caption" required>
+
+    </form>
+    <form action="/dashboard" method="GET" style="margin-top: 20px;">
+        <button type="submit" class="back-button">Submit</button>
+    </form>
+    
+    <form action="/dashboard" method="GET" style="margin-top: 20px;">
+        <button type="submit" class="back-button">Back to Dashboard</button>
+    </form>
+</body>
+</html>

@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="/css/dashboard.css">
-    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=cts+Daughter&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <style>
+        
+
+        
         body {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: Quicksand;
             background-color: #ffffff;
             color: #000000;
         }
@@ -23,13 +32,18 @@
             display: flex;
             flex: 1;
         }
-
+        .quicksand-{
+            font-family: Quicksand;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+        }
         .sidebar {
             width: 27%;
             background-color: #ffffff;
             color: #000000;
             padding: 15px;
-            font-family: 'Architects Daughter', cursive;
+            font-family: Quicksand;
             border-right: 1px solid #cccccc;
             height: calc(100vh - 40px); /* Subtract footer height */
             overflow-y: auto;
@@ -68,6 +82,7 @@
             height: calc(100vh - 40px); /* Subtract footer height */
             overflow-y: auto;
             padding: 0;
+
         }
         .dashboard-item {
             background-color: #ffffff; /* Keep items white */
@@ -209,7 +224,7 @@
         }
 
         #tabSearch {
-            width: 100%;
+            width: 90%;
             padding: 12px 20px;
             font-size: 16px;
             border: 2px solid #90EE90;
@@ -228,23 +243,26 @@
         .quick-tabs {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             margin-bottom: 30px;
+            justify-content: center; /* Center the tabs horizontally */
         }
 
         .quick-tab {
-            padding: 12px 20px;
-            background-color: #ffffff;
+            padding: 10px 15px;
+            background-color: #E6FFE6; /* Light green background */
             color: #000000;
-            border: 2px solid #90EE90;
-            border-radius: 25px;
+            border: 1px solid #90EE90;
+            border-radius: 20px;
             cursor: move;
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.2em;
+            font-family: Quicksand;
+            font-size: 1em;
             transition: all 0.3s ease;
-            flex-grow: 1;
+            flex-basis: calc(33.33% - 10px);
             text-align: center;
-            min-width: calc(50% - 15px);
+            display: flex; /* Add this */
+            justify-content: center; /* Center text horizontally */
+            align-items: center; /* Center text vertically */
         }
 
         .quick-tab:hover {
@@ -267,19 +285,23 @@
 
         .tab {
             flex-grow: 1;
-            padding: 15px 20px;
+            padding: 15px 10px;
             background-color: #ffffff;
             color: #000000;
-            border: 2px solid #90EE90; /* Light green outline */
+            border: 2px solid #90EE90;
             border-bottom: none;
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
-            margin-right: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
-            font-family: 'Architects Daughter', cursive;
-            font-size: 1.7em;
+            margin-right: 5px;
+            font-family: Quicksand;
+    
+            font-size: 1em;
             text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .tab:last-child {
@@ -287,9 +309,21 @@
         }
 
         .tab.active {
-            background-color: #90EE90; /* Light green background for selected tab */
-            border-bottom: 2px solid #90EE90; /* Match the background color */
+            background-color: #90EE90;
+            border-bottom: 2px solid #90EE90;
             color: #000000;
+        }
+
+        @media (max-width: 768px) {
+            .tab {
+                font-size: 0.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tab {
+                font-size: 0.7em;
+            }
         }
 
         .tab-content {
@@ -302,14 +336,14 @@
 
         .subject {
             color: #000000;
-            font-family: 'Architects Daughter', cursive;
+            font-family: Quicksand;
             font-size: 1.5em;
             margin-top: 10px;
             margin-bottom: 10px;
         }
         .dashboard-item .subject {
             color: #000000 !important;
-            font-family: 'Architects Daughter', cursive;
+            font-family: Quicksand;
             font-size: 1.5em;
             margin-top: 10px;
             margin-bottom: 10px;
@@ -360,7 +394,7 @@
             border: 1px solid #cccccc;
             border-radius: 20px;
             cursor: move;
-            font-family: 'Architects Daughter', cursive;
+            font-family: Quicksand;
             font-size: 0.9em;
             transition: background-color 0.3s;
         }
@@ -377,7 +411,7 @@
 <body>
 
     <div class="content">
-        <div class="sidebar">
+        <div class="sidebar quicksand-">
             <div class="app-icon">
                 <i class="fas fa-graduation-cap"></i>
             </div>
@@ -492,10 +526,16 @@
             <div class="quick-tabs">
                 <div class="quick-tab" draggable="true">Math</div>
                 <div class="quick-tab" draggable="true">History</div>
-                <div class="quick-tab" draggable="true">Physical</div>
+                <div class="quick-tab" draggable="true">Physics</div>
                 <div class="quick-tab" draggable="true">Biology</div>
                 <div class="quick-tab" draggable="true">Chemistry</div>
-                <div class="quick-tab" draggable="true">Physics</div>
+                <div class="quick-tab" draggable="true">Literature</div>
+                <div class="quick-tab" draggable="true">Geography</div>
+                <div class="quick-tab" draggable="true">Art</div>
+                <div class="quick-tab" draggable="true">Music</div>
+                <div class="quick-tab" draggable="true">Computer Science</div>
+                <div class="quick-tab" draggable="true">Economics</div>
+                <div class="quick-tab" draggable="true">Psychology</div>
             </div>
             <div id="availableTabs" class="available-tabs">
                 <!-- Available tabs will be dynamically added here -->
@@ -602,12 +642,21 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const tabContainer = document.querySelector('.tabs');
+            const tabContentContainer = document.querySelector('.tab-content');
             const availableTabsContainer = document.getElementById('availableTabs');
             const searchInput = document.getElementById('tabSearch');
             const quickTabs = document.querySelectorAll('.quick-tab');
+            const MAX_TABS = 3;
 
-            // Function to create a new tab
             function createNewTab(tabName) {
+                // Check if we already have the maximum number of tabs
+                if (tabContainer.children.length >= MAX_TABS) {
+                    // Remove the last tab and its corresponding content
+                    tabContainer.removeChild(tabContainer.lastElementChild);
+                    const lastTabContent = tabContentContainer.lastElementChild;
+                    tabContentContainer.removeChild(lastTabContent);
+                }
+
                 const newTab = document.createElement('div');
                 newTab.className = 'tab';
                 newTab.textContent = tabName;
@@ -619,9 +668,24 @@
                 newTabPane.id = `tab${tabContainer.children.length}`;
                 newTabPane.className = 'tab-pane';
                 newTabPane.innerHTML = `<div class="dashboard-item"><p>Content for ${tabName}</p></div>`;
-                document.querySelector('.tab-content').appendChild(newTabPane);
+                tabContentContainer.appendChild(newTabPane);
 
                 initializeTabEvents();
+                
+                // Activate the newly added tab
+                activateTab(newTab);
+            }
+
+            function activateTab(tab) {
+                const tabs = document.querySelectorAll('.tab');
+                const tabPanes = document.querySelectorAll('.tab-pane');
+
+                tabs.forEach(t => t.classList.remove('active'));
+                tabPanes.forEach(p => p.classList.remove('active'));
+
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
             }
 
             // Drag and drop functionality
