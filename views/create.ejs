@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .profile-container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: purple;
+        }
+        .reroll-button, .create-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #343a40;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .reroll-button:hover, .create-button:hover {
+            background-color: #495057;
+        }
+        .create-button {
+            background-color: #28a745;
+        }
+        .create-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <img class="profile-pic" src="" alt="Cat Picture">
+        <h3>You will be known as:</h3>
+        <div class="profile-name"></div>
+        <button class="reroll-button" onclick="generateProfile()">Reroll</button>
+
+        <!-- Create Account Button -->
+        <form action="/dashboard" method="GET">
+            <button type="submit" class="create-button">Create Account</button>
+        </form>
+    </div>
+
+    <script>
+        async function fetchCatImage() {
+            const response = await fetch('https://api.thecatapi.com/v1/images/search');
+            const data = await response.json();
+            return data[0].url;
+        }
+
+        function generateRandomCatName() {
+            const adjectives = ['Fluffy', 'Whiskered', 'Speedy', 'Lazy', 'Charming', 'Noble', 'Sneaky', 'Brave', 'Clever', 'Bold'];
+            const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const randomNumber = Math.floor(Math.random() * 100);
+            return `${randomAdjective}Cat${randomNumber}`;
+        }
+
+        async function generateProfile() {
+            const profilePic = document.querySelector('.profile-pic');
+            const profileName = document.querySelector('.profile-name');
+
+            // Fetch new cat image
+            const catPicUrl = await fetchCatImage();
+            profilePic.src = catPicUrl;
+
+            // Generate new random cat name
+            const randomCatName = generateRandomCatName();
+            profileName.textContent = randomCatName;
+        }
+
+        // Initialize profile on page load
+        document.addEventListener('DOMContentLoaded', generateProfile);
+    </script>
+
+</body>
+</html>

@@ -81,10 +81,19 @@ app.get("/profile", (req, res) => {
   }
 });
 
+app.get("/create", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("create.ejs"); // Renders the cat profile creation page
+  } else {
+    res.redirect("/login");
+  }
+});
+
+
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/dashboard",
+    successRedirect: "/create",
     failureRedirect: "/login",
   })
 );

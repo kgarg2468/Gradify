@@ -67,21 +67,21 @@
         .reaction-buttons {
             margin-top: 10px;
             display: flex;
-            gap: 15px; /* Spacing between buttons */
-            padding: 5px 0; /* Padding for a cleaner look */
+            gap: 15px;
+            padding: 5px 0;
         }
         .reaction {
             display: flex;
             align-items: center;
             cursor: pointer;
-            border: 2px solid #343a40; /* Border to separate reactions */
+            border: 2px solid #343a40;
             border-radius: 5px;
-            padding: 5px 10px; /* Padding for better aesthetics */
+            padding: 5px 10px;
             transition: border-color 0.3s, transform 0.3s, background-color 0.3s;
         }
         .reaction:hover {
-            background-color: #e9ecef; /* Light gray background on hover */
-            transform: scale(1.05); /* Scale up effect */
+            background-color: #e9ecef;
+            transform: scale(1.05);
         }
         .reaction-count {
             margin-left: 5px;
@@ -107,11 +107,16 @@
             flex-grow: 1;
         }
         .reactions {
-            display: flex; /* Ensure reactions are in a row */
-            gap: 15px; /* Space out reactions */
-            margin-top: 10px; /* Margin above reactions */
-            padding: 5px 0; /* Adjust padding for a cleaner look */
-            border-top: 1px solid #e0e0e0; /* Optional border above reactions for separation */
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            padding: 5px 0;
+            border-top: 1px solid #e0e0e0;
+        }
+        .small-grey-text {
+            color: grey;
+            font-size: 12px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -125,7 +130,6 @@
         </div>
 
         <div class="dashboard">
-            <!-- Multiple dashboard items -->
             <div class="dashboard-item">
                 <img class="profile-pic" src="" alt="Profile Picture">
                 <div class="text-content">
@@ -137,6 +141,7 @@
                         <button class="under-button" onclick="guess(75, false, this)">Under</button>
                     </div>
                     <div class="result hidden"></div>
+                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     <div class="reactions hidden">
                         <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
                         <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
@@ -145,18 +150,18 @@
                 </div>
             </div>
 
-            <!-- Repeat dashboard-item for more posts -->
             <div class="dashboard-item">
                 <img class="profile-pic" src="" alt="Profile Picture">
                 <div class="text-content">
                     <div class="username"></div>
-                    <h2>Data Structures Midterm</h2>
-                    <p>Over-Under me getting 30%?</p>
+                    <h2>Operating Systems Midterm</h2>
+                    <p>Over-Under me getting 75%?</p>
                     <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
+                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
                     </div>
                     <div class="result hidden"></div>
+                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     <div class="reactions hidden">
                         <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
                         <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
@@ -165,18 +170,18 @@
                 </div>
             </div>
 
-            <!-- Repeat dashboard-item for more posts -->
             <div class="dashboard-item">
                 <img class="profile-pic" src="" alt="Profile Picture">
                 <div class="text-content">
                     <div class="username"></div>
-                    <h2>Data Structures Midterm</h2>
-                    <p>Over-Under me getting 30%?</p>
+                    <h2>Operating Systems Midterm</h2>
+                    <p>Over-Under me getting 75%?</p>
                     <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
+                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
                     </div>
                     <div class="result hidden"></div>
+                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     <div class="reactions hidden">
                         <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
                         <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
@@ -185,18 +190,18 @@
                 </div>
             </div>
 
-            <!-- Repeat dashboard-item for more posts -->
             <div class="dashboard-item">
                 <img class="profile-pic" src="" alt="Profile Picture">
                 <div class="text-content">
                     <div class="username"></div>
-                    <h2>Data Structures Midterm</h2>
-                    <p>Over-Under me getting 30%?</p>
+                    <h2>Operating Systems Midterm</h2>
+                    <p>Over-Under me getting 75%?</p>
                     <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
+                        <button class="over-button" onclick="guess(75, true, this)">Over</button>
+                        <button class="under-button" onclick="guess(75, false, this)">Under</button>
                     </div>
                     <div class="result hidden"></div>
+                    <div class="small-grey-text hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
                     <div class="reactions hidden">
                         <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
                         <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
@@ -205,52 +210,15 @@
                 </div>
             </div>
 
-            <!-- Repeat dashboard-item for more posts -->
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Data Structures Midterm</h2>
-                    <p>Over-Under me getting 30%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
-                    </div>
-                    <div class="result hidden"></div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Repeat dashboard-item for more posts -->
-            <div class="dashboard-item">
-                <img class="profile-pic" src="" alt="Profile Picture">
-                <div class="text-content">
-                    <div class="username"></div>
-                    <h2>Data Structures Midterm</h2>
-                    <p>Over-Under me getting 30%?</p>
-                    <div class="reaction-buttons">
-                        <button class="over-button" onclick="guess(30, true, this)">Over</button>
-                        <button class="under-button" onclick="guess(30, false, this)">Under</button>
-                    </div>
-                    <div class="result hidden"></div>
-                    <div class="reactions hidden">
-                        <div class="reaction" onclick="react('laugh', this)">😂 Laugh <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('sad', this)">😢 Sad <span class="reaction-count"></span></div>
-                        <div class="reaction" onclick="react('angry', this)">😡 Angry <span class="reaction-count"></span></div>
-                    </div>
-                </div>
-            </div>
             <!-- Add more dashboard-items as needed -->
+
         </div>
     </div>
 
     <footer>
         <p>&copy; Gradify 2024</p>
     </footer>
+
     <script>
         // Randomly generate a number between 1 and 1000
         function getRandomVoteCount() {
@@ -303,15 +271,16 @@
         }
 
         function guess(threshold, isOver, button) {
-            const resultDiv = button.closest('.dashboard-item').querySelector('.result');
-            const reactionsDiv = button.closest('.dashboard-item').querySelector('.reactions');
+            const item = button.closest('.dashboard-item');
+            const resultDiv = item.querySelector('.result');
+            const reactionsDiv = item.querySelector('.reactions');
+            const smallGreyText = item.querySelector('.small-grey-text');
+            
             resultDiv.classList.remove('hidden');
+            smallGreyText.classList.remove('hidden');
+            reactionsDiv.classList.remove('hidden');
+
             resultDiv.textContent = isOver ? `You guessed Over! Threshold was ${threshold}` : `You guessed Under! Threshold was ${threshold}`;
-            reactionsDiv.classList.remove('hidden'); // Show reactions when guessed
-            button.classList.add('animated');
-            setTimeout(() => {
-                button.classList.remove('animated');
-            }, 500);
         }
 
         function react(reactionType, reactionElement) {

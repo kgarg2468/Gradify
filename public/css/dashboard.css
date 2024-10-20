@@ -22,6 +22,13 @@ nav a {
     display: flex;
 }
 
+.small-grey-text {
+    color: grey;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
 .sidebar {
     width: 200px;
     background-color: #f4f4f4;
@@ -76,6 +83,7 @@ nav a {
     display: flex;
     gap: 10px; /* Adds space between buttons */
 }
+
 
 button {
     padding: 10px 15px;
